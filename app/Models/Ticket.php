@@ -12,7 +12,7 @@ class Ticket extends Model
         'title',
         'description',
         'status',
-        'priorty',
+        'priority',
         'completed_at',
     ];
 
