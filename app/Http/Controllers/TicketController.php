@@ -12,6 +12,46 @@ use App\Models\Ticket;
 
 class TicketController extends Controller
 {
+    public function index(Request $request)
+    {
+        try {
+            $query = Ticket::query();
+
+            $query->orderBy('created_at', 'desc'); //filter berdasarkan pembuatan ticket terbaru
+
+            if ($request->search) {
+            $query->where('code', 'like', '%' . $request->search . '%')
+                    ->orWhere('title', 'like', '%' . $request->search . '%');
+            }
+
+            if ($request->status) {
+                $query->where('status', $request->status);
+            }
+
+            if ($request->priority) {
+                $query->where('priority', $request->priority);
+            }
+
+            if (auth()->user()->role == 'user') {
+                $query->where('user_id', auth()->user()->id);
+            }
+
+            $tickets = $query->get();
+
+            return response()->json([
+                'message' => 'Data Tiket Berhasil Ditampilkan',
+                'data' => TicketResource::collection($tickets)
+            ], 200);
+
+        } catch (\Throwable $e) {
+
+            return response()->json([
+                'message' => 'Terjadi Kesalahan',
+                'data' => null
+            ], 500);
+        }
+    }
+
     public function store(TicketStoreRequest $request)
     {
         $data = $request->validated();
