@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\UserResource;
 
 class TicketReplyResource extends JsonResource
 {
@@ -16,7 +17,7 @@ class TicketReplyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => UserResource($this->user),
+            'user' => new UserResource($this->user),
             'content' => $this->content,
             'created_at' => $this->created_at,
         ];
