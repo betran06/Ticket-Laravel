@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\TicketStoreRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\TicketResource;
 use App\Models\Ticket;
+use App\Http\Requests\TicketStoreRequest;
 
 use App\Http\Requests\TicketReplyStoreRequest;
 use App\Models\TicketReply;
